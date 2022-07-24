@@ -1,16 +1,18 @@
+import type { NextPage } from "next";
+//import styles from "../styles/Home.module.css";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import {
   animationEnd,
   animElement,
   handleColors,
   updateQuote,
-} from "./utils/funcs";
-import { QuoteType } from "./utils/types";
-import Quote from "./components/Quote";
-import Actions from "./components/Actions";
-import { useLang } from "./utils/hooks";
+} from "../utils/funcs";
+import { QuoteType } from "../utils/types";
+import Quote from "../components/Quote";
+import Actions from "../components/Actions";
+import { useLang } from "../utils/hooks";
 
-function App() {
+const Home: NextPage = () => {
   const [quote, setQuote] = useState<QuoteType>({
     text: "",
     author: "",
@@ -58,10 +60,10 @@ function App() {
           <Quote error={error} quote={quote} />
         )}
         <Actions quote={quote} handleNewQuote={handleNewQuote} />
-        <p className="cr">{text.dev}</p>
       </div>
+      <p className="cr">{text.dev}</p>
     </div>
   );
-}
+};
 
-export default App;
+export default Home;
