@@ -1,4 +1,5 @@
-import { QuoteType } from "../utils/types";
+import { QuoteType } from "../../utils/types";
+import style from "./quote.module.css";
 
 type QuoteProps = {
   quote: QuoteType;
@@ -11,8 +12,8 @@ function Quote({ error, quote }: QuoteProps) {
   } else {
     return (
       <blockquote>
-        <p id="text">{error ? error : quote.text}</p>
-        <address id="author">- {quote.author}</address>
+        <p id={style.text}>{error ? error : quote.text}</p>
+        <address id={style.author}>- {quote.author}</address>
       </blockquote>
     );
   }

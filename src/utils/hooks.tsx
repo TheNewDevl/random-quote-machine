@@ -25,7 +25,7 @@ const texts: TextsType = {
 };
 
 export function LangContextProvider({ children }: PropsWithChildren) {
-  const [lang, setLang] = useState<Lang>("fr");
+  const [lang, setLang] = useState<Lang>("en");
 
   const text: TextType = texts[lang];
 

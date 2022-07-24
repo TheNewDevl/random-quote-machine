@@ -8,8 +8,8 @@ import {
   updateQuote,
 } from "../utils/funcs";
 import { QuoteType } from "../utils/types";
-import Quote from "../components/Quote";
-import Actions from "../components/Actions";
+import Quote from "../components/Quote/Quote";
+import Actions from "../components/Actions/Actions";
 import { useLang } from "../utils/hooks";
 
 const Home: NextPage = () => {
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const quoteBox = useRef(null);
 
-  const { text, setLang } = useLang();
+  const { text, setLang, lang } = useLang();
 
   useEffect(() => {
     setInterval(handleColors, 20);
@@ -32,8 +32,6 @@ const Home: NextPage = () => {
     e && e.preventDefault();
     const element = quoteBox.current!!;
 
-    setLang((lang) => (lang === "en" ? "fr" : "en"));
-
     first
       ? animElement(element, "reverse-anim")
       : animElement(element, "anim", "reverse-anim");
@@ -41,6 +39,16 @@ const Home: NextPage = () => {
     try {
       const response = await fetch("https://api.quotable.io/random");
       const data = response.ok && (await response.json());
+      console.log(data);
+      if (lang === "fr") {
+        const response = await fetch("http://127.0.0.1:3000/api/tl", {
+          method: "POST",
+          body: data.content,
+        });
+        const translated = response.ok && (await response.json());
+        data.content = translated.text;
+        console.log(translated);
+      }
       first
         ? updateQuote(data, setQuote)
         : animationEnd(element, "anim", () => updateQuote(data, setQuote));

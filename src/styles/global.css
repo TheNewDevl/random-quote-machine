@@ -39,62 +39,6 @@ body {
   border-radius: 10px;
 }
 
-#text {
-  font-size: var(--font-size);
-}
-
-#text::before {
-  content: "\201F   ";
-  font-size: calc(var(--font-size) * 1.4);
-}
-
-#text::after {
-  content: "   \201D";
-  font-size: calc(var(--font-size) * 1.4);
-}
-
-#author {
-  font-size: calc(var(--font-size) * 0.5);
-  margin-top: 0.5em;
-  text-align: right;
-}
-
-.actions {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-}
-
-.btn {
-  align-items: center;
-  background-color: var(--bg-color);
-  color: var(--contrast-color);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: calc(var(--font-size) * 0.6);
-  font-weight: 700;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.quote__btn {
-  background-color: var(--bg-color);
-  color: var(--contrast-color);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: calc(var(--font-size) * 0.6);
-  font-weight: 700;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.btn:hover {
-  background-color: var(--contrast-color);
-  color: var(--bg-color);
-}
-
 .anim {
   animation: anim 500ms ease-in-out;
 }
@@ -122,7 +66,7 @@ body {
 }
 
 .cr {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   color: #fff;
 }

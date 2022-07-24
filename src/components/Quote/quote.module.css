@@ -1,0 +1,19 @@
+#text {
+  font-size: var(--font-size);
+}
+
+#text::before {
+  content: "\201F   ";
+  font-size: calc(var(--font-size) * 1.4);
+}
+
+#text::after {
+  content: "   \201D";
+  font-size: calc(var(--font-size) * 1.4);
+}
+
+#author {
+  font-size: calc(var(--font-size) * 0.5);
+  margin-top: 0.5em;
+  text-align: right;
+}

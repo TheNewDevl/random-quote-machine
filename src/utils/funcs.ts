@@ -1,7 +1,7 @@
 import React from "react";
 import { QuoteType, ResponseType } from "./types";
 
-export const updateQuote = (
+export const updateQuote = async (
   data: ResponseType,
   setQuote: React.Dispatch<React.SetStateAction<QuoteType>>
 ) => {
@@ -43,7 +43,8 @@ export const handleColors = () => {
   let hue = parseFloat(
     getComputedStyle(document.documentElement).getPropertyValue("--hue")
   );
-  hue += 0.2;
+  hue += 0.1;
+  console.log(hue);
 
   document.documentElement.style.setProperty("--hue", hue.toString());
 };
