@@ -1,70 +1,128 @@
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  --hue: 200;
+  --saturation: 75%;
+  --contrast-color: hsl(var(--hue), var(--saturation), 90%);
+  --bg-color: hsl(var(--hue), var(--saturation), 25%);
+  --font-size: 2rem;
 }
 
 body {
   margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+  color: var(--bg-color);
+}
+
+.App {
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  align-items: center;
+  justify-content: center;
   min-height: 100vh;
+  background-color: var(--bg-color);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#quote-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+  min-width: 350px;
+  color: #fff;
+  padding: 2rem;
+  background-color: var(--contrast-color);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+#text {
+  font-size: var(--font-size);
+}
+
+#text::before {
+  content: "\201F   ";
+  font-size: calc(var(--font-size) * 1.4);
+}
+
+#text::after {
+  content: "   \201D";
+  font-size: calc(var(--font-size) * 1.4);
+}
+
+#author {
+  font-size: calc(var(--font-size) * 0.5);
+  margin-top: 0.5em;
+  text-align: right;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.btn {
+  align-items: center;
+  background-color: var(--bg-color);
+  color: var(--contrast-color);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: calc(var(--font-size) * 0.6);
+  font-weight: 700;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  text-decoration: none;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.quote__btn {
+  background-color: var(--bg-color);
+  color: var(--contrast-color);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: calc(var(--font-size) * 0.6);
+  font-weight: 700;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: var(--contrast-color);
+  color: var(--bg-color);
+}
+
+.anim {
+  animation: anim 500ms ease-in-out;
+}
+
+.reverse-anim {
+  animation: reverse-anim 500ms ease-in-out;
+}
+
+@keyframes anim {
+  from {
+    transform: rotate(0deg);
   }
-  a:hover {
-    color: #747bff;
+  to {
+    transform: rotate(360deg) scale(0);
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+@keyframes reverse-anim {
+  from {
+    transform: rotate(360deg) scale(0);
   }
+  to {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+.cr {
+  position: absolute;
+  bottom: 0;
+  color: #fff;
 }
