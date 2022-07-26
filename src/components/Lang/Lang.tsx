@@ -24,12 +24,7 @@ function Lang({ quote, setFrQuote, setError, frQuote }: LangProps) {
       handleSlider(targetLang);
       if (targetLang === "fr") {
         if (frQuote.text === "") {
-          const translation = await fetchData(
-            "http://localhost:3000/api/tl",
-            "POST",
-            setError,
-            quote.text
-          );
+          const translation = await fetchData("/api/tl", "POST", setError, quote.text);
           setFrQuote({ text: translation.text, author: quote.author });
         }
         setLang(targetLang);

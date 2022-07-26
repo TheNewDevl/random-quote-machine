@@ -8,7 +8,7 @@ type QuoteProps = {
 
 function Quote({ error, quote }: QuoteProps) {
   if (error) {
-    return <p>{`${error}`}</p>;
+    return <p style={{ color: "#000" }}>Une erreur s'est produite. </p>;
   } else {
     return (
       <blockquote>

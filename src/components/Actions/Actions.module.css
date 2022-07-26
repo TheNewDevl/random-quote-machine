@@ -35,4 +35,8 @@
   .btn {
     justify-content: center;
   }
+
+  .btn:hover {
+    transform: none;
+  }
 }

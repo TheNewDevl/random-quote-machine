@@ -1,12 +1,11 @@
 import type { NextPage } from "next";
 import { MouseEvent, useEffect, useRef, useState } from "react";
-import { handleColors, updateQuote } from "../utils/funcs";
+import { handleColors, updateQuote, fetchData } from "../utils/funcs";
 import { QuoteType } from "../utils/types";
 import Quote from "../components/Quote/Quote";
 import Actions from "../components/Actions/Actions";
 import { useLang } from "../utils/hooks";
 import Lang from "../components/Lang/Lang";
-import { fetchData } from "../utils/funcs";
 import { reverseRotateFn, rotateFn } from "../utils/anims";
 
 const Home: NextPage = () => {
@@ -22,7 +21,7 @@ const Home: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const quoteBox = useRef(null);
 
-  const { text, setLang, lang } = useLang();
+  const { text, lang } = useLang();
 
   const quoteFn = () => {
     return lang === "fr" ? frQuote : quote;
@@ -47,7 +46,7 @@ const Home: NextPage = () => {
 
       if (lang === "fr") {
         const body = newQuote.content;
-        const translation = await fetchData("http://localhost:3000/api/tl", "POST", setError, body);
+        const translation = await fetchData("/api/tl", "POST", setError, body);
         setFrQuote({
           text: translation.text,
           author: newQuote.author,
