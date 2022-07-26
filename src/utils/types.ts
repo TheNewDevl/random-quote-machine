@@ -21,6 +21,10 @@ export type TextType = {
   title: string;
   dev: string;
   loading: string;
+  langDiagTitle: string;
+  lang1: string;
+  lang2: string;
+  alert: string;
 };
 
 export type TextsType = {

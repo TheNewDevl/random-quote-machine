@@ -1,18 +1,19 @@
 import type { NextPage } from "next";
-//import styles from "../styles/Home.module.css";
 import { MouseEvent, useEffect, useRef, useState } from "react";
-import {
-  animationEnd,
-  animElement,
-  handleColors,
-  updateQuote,
-} from "../utils/funcs";
+import { handleColors, updateQuote } from "../utils/funcs";
 import { QuoteType } from "../utils/types";
 import Quote from "../components/Quote/Quote";
 import Actions from "../components/Actions/Actions";
 import { useLang } from "../utils/hooks";
+import Lang from "../components/Lang/Lang";
+import { fetchData } from "../utils/funcs";
+import { reverseRotateFn, rotateFn } from "../utils/anims";
 
 const Home: NextPage = () => {
+  const [frQuote, setFrQuote] = useState<QuoteType>({
+    text: "",
+    author: "",
+  });
   const [quote, setQuote] = useState<QuoteType>({
     text: "",
     author: "",
@@ -23,36 +24,42 @@ const Home: NextPage = () => {
 
   const { text, setLang, lang } = useLang();
 
+  const quoteFn = () => {
+    return lang === "fr" ? frQuote : quote;
+  };
+
   useEffect(() => {
-    setInterval(handleColors, 20);
-    //handleNewQuote(null, true);
+    setInterval(handleColors, 100);
+    handleNewQuote(null, true);
   }, []);
 
   const handleNewQuote = async (e?: MouseEvent | null, first?: boolean) => {
     e && e.preventDefault();
-    const element = quoteBox.current!!;
+    const rotate = rotateFn(quoteBox.current! as HTMLElement);
+    const reverseRotate = reverseRotateFn(quoteBox.current! as HTMLElement);
 
-    first
-      ? animElement(element, "reverse-anim")
-      : animElement(element, "anim", "reverse-anim");
-
+    first ? reverseRotate.play() : rotate.play();
+    rotate.onfinish = () => {
+      reverseRotate.play();
+    };
     try {
-      const response = await fetch("https://api.quotable.io/random");
-      const data = response.ok && (await response.json());
-      console.log(data);
+      const newQuote = await fetchData("https://api.quotable.io/random", "GET", setError);
+
       if (lang === "fr") {
-        const response = await fetch("http://127.0.0.1:3000/api/tl", {
-          method: "POST",
-          body: data.content,
+        const body = newQuote.content;
+        const translation = await fetchData("http://localhost:3000/api/tl", "POST", setError, body);
+        setFrQuote({
+          text: translation.text,
+          author: newQuote.author,
         });
-        const translated = response.ok && (await response.json());
-        data.content = translated.text;
-        console.log(translated);
       }
       first
-        ? updateQuote(data, setQuote)
-        : animationEnd(element, "anim", () => updateQuote(data, setQuote));
-    } catch (e: any) {
+        ? updateQuote(newQuote, setQuote)
+        : (rotate.onfinish = () => {
+            reverseRotate.play();
+            updateQuote(newQuote, setQuote);
+          });
+    } catch (err: any) {
       setError(error);
     } finally {
       setIsLoading(false);
@@ -62,12 +69,9 @@ const Home: NextPage = () => {
   return (
     <div className="App">
       <div ref={quoteBox} id="quote-box">
-        {isLoading ? (
-          <p>{text.loading}</p>
-        ) : (
-          <Quote error={error} quote={quote} />
-        )}
-        <Actions quote={quote} handleNewQuote={handleNewQuote} />
+        <Lang quote={quote} frQuote={frQuote} setFrQuote={setFrQuote} setError={setError} />
+        {isLoading ? <p>{text.loading}</p> : <Quote error={error} quote={quoteFn()} />}
+        <Actions quote={quoteFn()} handleNewQuote={handleNewQuote} />
       </div>
       <p className="cr">{text.dev}</p>
     </div>

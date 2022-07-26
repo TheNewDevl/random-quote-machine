@@ -12,8 +12,12 @@ function Quote({ error, quote }: QuoteProps) {
   } else {
     return (
       <blockquote>
-        <p id={style.text}>{error ? error : quote.text}</p>
-        <address id={style.author}>- {quote.author}</address>
+        <p id="text" className={style.text}>
+          {error ? error : quote.text}
+        </p>
+        <address id="author" className={style.author}>
+          - {quote.author}
+        </address>
       </blockquote>
     );
   }

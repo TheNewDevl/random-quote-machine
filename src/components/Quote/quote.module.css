@@ -1,19 +1,31 @@
-#text {
+.text {
   font-size: var(--font-size);
+  color: var(--bg-color);
 }
 
-#text::before {
+.text::before {
   content: "\201F   ";
   font-size: calc(var(--font-size) * 1.4);
+  color: var(--bg-color);
 }
 
-#text::after {
+.text::after {
   content: "   \201D";
   font-size: calc(var(--font-size) * 1.4);
+  color: var(--bg-color);
 }
 
-#author {
+.author {
   font-size: calc(var(--font-size) * 0.5);
   margin-top: 0.5em;
   text-align: right;
+  color: var(--bg-color);
+}
+
+@media screen and (max-width: 600px) {
+  .text {
+  }
+  .author {
+    font-size: calc(var(--font-size) * 0.7);
+  }
 }

@@ -15,11 +15,11 @@ function Actions({ quote, handleNewQuote }: ActionsProps) {
   return (
     <div className={style.actions}>
       <Link
-        className={style.btn}
         href={`https://twitter.com/intent/tweet?text=${quote.text}-${quote.author}`}
         id="tweet-quote"
+        className={style.btn}
       >
-        <TwitterIcon />
+        <TwitterIcon color="inherit" style={{ marginRight: "1rem" }} />
         {text.tweetBtn}
       </Link>
       <a href="/" className={style.btn} onClick={handleNewQuote} id="new-quote">

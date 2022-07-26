@@ -1,5 +1,4 @@
 .actions {
-  border: 1px solid var(--bg-color);
   display: flex;
   justify-content: space-evenly;
   width: 100%;
@@ -10,28 +9,30 @@
   align-items: center;
   background-color: var(--bg-color);
   color: var(--contrast-color);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: calc(var(--font-size) * 0.6);
-  font-weight: 700;
-  transition: all 1000ms ease-in-out;
-  cursor: pointer;
-  text-decoration: none;
-}
 
-.quote__btn {
-  background-color: var(--bg-color);
-  color: var(--contrast-color);
   padding: 0.5rem 1rem;
   border-radius: 20px;
-  font-size: calc(var(--font-size) * 0.6);
+  font-size: calc(var(--font-size) * 0.7);
   font-weight: 700;
-  transition: all 0.2s ease-in-out;
+  transition: all 100ms ease-in-out;
   cursor: pointer;
   text-decoration: none;
+  height: 41px;
 }
 
 .btn:hover {
+  transform: scale(1.2);
   background-color: var(--contrast-color);
   color: var(--bg-color);
+}
+
+@media screen and (max-width: 600px) {
+  .actions {
+    gap: 0.5rem;
+    flex-direction: column-reverse;
+  }
+
+  .btn {
+    justify-content: center;
+  }
 }

@@ -2,19 +2,19 @@
   --hue: 200;
   --saturation: 75%;
   --contrast-color: hsl(var(--hue), var(--saturation), 90%);
-  --bg-color: hsl(var(--hue), var(--saturation), 25%);
+  --bg-color: hsl(var(--hue), var(--saturation), 35%);
   --font-size: 2rem;
 }
 
 body {
   margin: 0;
   padding: 0;
+  background-color: var(--bg-color);
 }
 
 * {
   box-sizing: border-box;
   font-family: sans-serif;
-  color: var(--bg-color);
 }
 
 .App {
@@ -22,7 +22,6 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: var(--bg-color);
 }
 
 #quote-box {
@@ -30,43 +29,28 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 70%;
+  width: 90%;
   min-width: 350px;
   color: #fff;
   padding: 2rem;
   background-color: var(--contrast-color);
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
-}
-
-.anim {
-  animation: anim 500ms ease-in-out;
-}
-
-.reverse-anim {
-  animation: reverse-anim 500ms ease-in-out;
-}
-
-@keyframes anim {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg) scale(0);
-  }
-}
-
-@keyframes reverse-anim {
-  from {
-    transform: rotate(360deg) scale(0);
-  }
-  to {
-    transform: rotate(0deg) scale(1);
-  }
+  transform: rotate(360deg) scale(0);
 }
 
 .cr {
   position: fixed;
   bottom: 0;
   color: #fff;
+}
+
+@media screen and (max-width: 600px) {
+  :root {
+    --font-size: 1.5rem;
+  }
+
+  #quote-box {
+    padding: 1rem 20px;
+  }
 }

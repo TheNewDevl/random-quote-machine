@@ -14,6 +14,10 @@ const texts: TextsType = {
     title: "Random quotes",
     dev: "Coded by Carlos",
     loading: "Loading...",
+    langDiagTitle: "Select your language",
+    lang1: "English",
+    lang2: "French",
+    alert: "Oops, language currently unavailable",
   },
   fr: {
     newQuoteBtn: "Nouvelle citation",
@@ -21,6 +25,10 @@ const texts: TextsType = {
     title: "Citations aléatoires",
     dev: "Développé par Carlos",
     loading: "Chargement...",
+    langDiagTitle: "Choisissez votre langue",
+    lang1: "Anglais",
+    lang2: "Français",
+    alert: "Oups, Langue indisponible",
   },
 };
 
@@ -29,9 +37,5 @@ export function LangContextProvider({ children }: PropsWithChildren) {
 
   const text: TextType = texts[lang];
 
-  return (
-    <Context.Provider value={{ lang, setLang, text }}>
-      {children}
-    </Context.Provider>
-  );
+  return <Context.Provider value={{ lang, setLang, text }}>{children}</Context.Provider>;
 }

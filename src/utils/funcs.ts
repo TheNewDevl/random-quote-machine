@@ -11,41 +11,9 @@ export const updateQuote = async (
   });
 };
 
-export const animationEnd = (
-  el: HTMLElement,
-  anim: string,
-  cb?: () => void
-) => {
-  const event = "animationend";
-
-  el.addEventListener(event, (e) => {
-    e.animationName === anim && el.classList.remove(anim);
-    cb && cb();
-  });
-};
-
-export const animElement = (el: HTMLElement, anim: string, anim2?: string) => {
-  if (!el) {
-    throw new Error("Element is undefined, can't set animation");
-  }
-
-  el.classList.add(anim);
-
-  if (anim2) {
-    animationEnd(el, anim, () => el.classList.add(anim2));
-    animationEnd(el, anim2);
-  } else {
-    animationEnd(el, anim);
-  }
-};
-
 export const handleColors = () => {
-  let hue = parseFloat(
-    getComputedStyle(document.documentElement).getPropertyValue("--hue")
-  );
-  hue += 0.1;
-  console.log(hue);
-
+  let hue = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--hue"));
+  hue += 0.5;
   document.documentElement.style.setProperty("--hue", hue.toString());
 };
 
@@ -55,4 +23,25 @@ export const setDocumentTitle = (title: string) => {
 
 export const preventDefault = (e: React.MouseEvent) => {
   e.preventDefault();
+};
+
+export const fetchData = async (
+  uri: string,
+  method: string,
+  setError: React.Dispatch<React.SetStateAction<null>>,
+  body?: BodyInit
+) => {
+  try {
+    const res = await fetch(uri, {
+      method,
+      body,
+    });
+    if (res.ok) {
+      return await res.json();
+    } else {
+      throw new Error("Error fetching data");
+    }
+  } catch (error: any) {
+    setError(error);
+  }
 };
