@@ -1,5 +1,5 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react";
-import { LangContextType, TextType, TextsType, Lang } from "./types";
+import { LangContextType, TextType, TextsType, LangType } from "./types";
 
 const Context = createContext<LangContextType>({} as any);
 
@@ -33,7 +33,7 @@ const texts: TextsType = {
 };
 
 export function LangContextProvider({ children }: PropsWithChildren) {
-  const [lang, setLang] = useState<Lang>("en");
+  const [lang, setLang] = useState<LangType>("en");
 
   const text: TextType = texts[lang];
 
