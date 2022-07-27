@@ -11,10 +11,9 @@ export const updateQuote = async (
   });
 };
 
-export const handleColors = () => {
-  let hue = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--hue"));
-  hue += 0.5;
-  document.documentElement.style.setProperty("--hue", hue.toString());
+export const handleColors = (delta: number) => {
+  const hue = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--hue"));
+  document.documentElement.style.setProperty("--hue", String(hue + delta * 0.01));
 };
 
 export const setDocumentTitle = (title: string) => {
