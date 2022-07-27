@@ -1,5 +1,5 @@
 const rotateKeyf: Keyframe[] = [
-  { transform: "rotate(0deg)" },
+  { transform: "rotate(0deg) scale(1)" },
   { transform: "rotate(360deg) scale(0)" },
 ];
 

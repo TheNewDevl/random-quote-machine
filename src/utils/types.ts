@@ -32,7 +32,7 @@ export type TextsType = {
   en: TextType;
 };
 
-export type Lang = "fr" | "en";
+export type LangType = "fr" | "en";
 
 export type LangContextType = {
   lang: string;

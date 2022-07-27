@@ -1,7 +1,7 @@
 import LanguageIcon from "@mui/icons-material/Language";
 import { useEffect } from "react";
 import { useLang } from "../../utils/hooks";
-import { Lang, QuoteType } from "../../utils/types";
+import { LangType, QuoteType } from "../../utils/types";
 import style from "./Lang.module.css";
 import { fetchData } from "../../utils/funcs";
 
@@ -9,13 +9,14 @@ type LangProps = {
   quote: QuoteType;
   setFrQuote: React.Dispatch<React.SetStateAction<QuoteType>>;
   setError: React.Dispatch<React.SetStateAction<any>>;
-  frQuote: QuoteType;
+  isTranslated: boolean;
+  setIsTranslated: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function Lang({ quote, setFrQuote, setError, frQuote }: LangProps) {
+function Lang({ quote, setFrQuote, setError, isTranslated, setIsTranslated }: LangProps) {
   const { setLang, lang, text } = useLang();
   useEffect(() => {
-    handleSlider(lang as Lang);
+    handleSlider(lang as LangType);
   }, []);
 
   const handleChoice = async (e: any) => {
@@ -23,16 +24,17 @@ function Lang({ quote, setFrQuote, setError, frQuote }: LangProps) {
       const targetLang = e.currentTarget.dataset.lang;
       handleSlider(targetLang);
       if (targetLang === "fr") {
-        if (frQuote.text === "") {
+        if (!isTranslated) {
           const translation = await fetchData("/api/tl", "POST", setError, quote.text);
           setFrQuote({ text: translation.text, author: quote.author });
         }
         setLang(targetLang);
+        setIsTranslated(true);
       } else if (targetLang === "en") {
         setLang(targetLang);
       }
     } catch (error) {
-      handleSlider(lang as Lang);
+      handleSlider(lang as LangType);
       alert(text.alert);
     }
   };
@@ -41,7 +43,7 @@ function Lang({ quote, setFrQuote, setError, frQuote }: LangProps) {
     return lang === value ? `${style.toggle} ${style.active}` : style.toggle;
   };
 
-  const handleSlider = (value: Lang) => {
+  const handleSlider = (value: LangType) => {
     const slides = document.getElementById("slider");
     if (value === "en") {
       slides?.style.setProperty("left", "50%");

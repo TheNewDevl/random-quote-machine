@@ -9,7 +9,6 @@
   align-items: center;
   background-color: var(--bg-color);
   color: var(--contrast-color);
-
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: calc(var(--font-size) * 0.7);
@@ -20,10 +19,19 @@
   height: 41px;
 }
 
-.btn:hover {
-  transform: scale(1.2);
-  background-color: var(--contrast-color);
-  color: var(--bg-color);
+@media (hover: hover) {
+  .btn:hover {
+    transform: scale(1.2);
+    background-color: var(--contrast-color);
+    color: var(--bg-color);
+  }
+}
+@media (hover: none) {
+  .btn:active {
+    transform: scale(1.2);
+    background-color: var(--contrast-color);
+    color: var(--bg-color);
+  }
 }
 
 @media screen and (max-width: 600px) {
