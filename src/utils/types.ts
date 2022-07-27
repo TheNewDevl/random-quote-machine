@@ -36,6 +36,6 @@ export type LangType = "fr" | "en";
 
 export type LangContextType = {
   lang: string;
-  setLang: React.Dispatch<React.SetStateAction<Lang>>;
+  setLang: React.Dispatch<React.SetStateAction<LangType>>;
   text: TextType;
 };
