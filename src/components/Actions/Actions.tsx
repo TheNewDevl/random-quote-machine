@@ -1,8 +1,8 @@
-import { Link } from "@mui/material";
 import { QuoteType } from "../../utils/types";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { useLang } from "../../utils/hooks";
 import style from "./Actions.module.css";
+import Link from "next/link";
 
 type ActionsProps = {
   quote: QuoteType;
@@ -22,9 +22,11 @@ function Actions({ quote, handleNewQuote }: ActionsProps) {
         <TwitterIcon color="inherit" style={{ marginRight: "1rem" }} />
         {text.tweetBtn}
       </a>
-      <a href="/" className={style.btn} onClick={handleNewQuote} id="new-quote">
-        {text.newQuoteBtn}
-      </a>
+      <Link href="/">
+        <a onClick={handleNewQuote} className={style.btn} id="new-quote">
+          {text.newQuoteBtn}
+        </a>
+      </Link>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { MouseEvent, useEffect, useRef, useState } from "react";
-import { handleColors, updateQuote, fetchData } from "../utils/funcs";
+import { handleColors, updateQuote, fetchData, setDocumentTitle } from "../utils/funcs";
 import { QuoteType } from "../utils/types";
 import Quote from "../components/Quote/Quote";
 import Actions from "../components/Actions/Actions";
@@ -41,6 +41,10 @@ const Home: NextPage = () => {
 
     return () => cancelAnimationFrame(requestRef.current as number);
   }, []);
+
+  useEffect(() => {
+    setDocumentTitle(text.title);
+  }, [text]);
 
   const quoteFn = () => {
     return lang === "fr" ? frQuote : quote;

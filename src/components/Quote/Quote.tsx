@@ -1,3 +1,4 @@
+import { useLang } from "../../utils/hooks";
 import { QuoteType } from "../../utils/types";
 import style from "./quote.module.css";
 
@@ -7,8 +8,9 @@ type QuoteProps = {
 };
 
 function Quote({ error, quote }: QuoteProps) {
+  const { text } = useLang();
   if (error) {
-    return <p style={{ color: "#000" }}>Une erreur s'est produite. </p>;
+    return <p style={{ color: "#000" }}>{text.errorMsg}</p>;
   } else {
     return (
       <blockquote>

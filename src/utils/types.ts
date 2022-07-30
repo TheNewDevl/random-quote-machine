@@ -25,6 +25,7 @@ export type TextType = {
   lang1: string;
   lang2: string;
   alert: string;
+  errorMsg: string;
 };
 
 export type TextsType = {

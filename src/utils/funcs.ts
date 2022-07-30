@@ -20,10 +20,6 @@ export const setDocumentTitle = (title: string) => {
   document.title = title;
 };
 
-export const preventDefault = (e: React.MouseEvent) => {
-  e.preventDefault();
-};
-
 export const fetchData = async (
   uri: string,
   method: string,

@@ -18,6 +18,7 @@ const texts: TextsType = {
     lang1: "English",
     lang2: "French",
     alert: "Oops, language currently unavailable",
+    errorMsg: "An error occurred. Please try again later.",
   },
   fr: {
     newQuoteBtn: "Nouvelle citation",
@@ -29,6 +30,7 @@ const texts: TextsType = {
     lang1: "Anglais",
     lang2: "Français",
     alert: "Oups, Langue indisponible",
+    errorMsg: "Une erreur est survenue.",
   },
 };
 

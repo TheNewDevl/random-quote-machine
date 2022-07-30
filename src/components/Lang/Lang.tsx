@@ -23,14 +23,14 @@ function Lang({
   setIsLoading,
 }: LangProps) {
   const { setLang, lang, text } = useLang();
+
   useEffect(() => {
     handleSlider(lang as LangType);
-  }, []);
+  }, [lang]);
 
   const handleChoice = async (e: any) => {
     try {
       const targetLang = e.currentTarget.dataset.lang;
-      handleSlider(targetLang);
       setLang(targetLang);
       if (targetLang === "fr") {
         setIsLoading(true);
@@ -43,7 +43,6 @@ function Lang({
       }
     } catch (error) {
       setLang("en");
-      handleSlider("en");
       alert(text.alert);
     } finally {
       setIsLoading(false);
