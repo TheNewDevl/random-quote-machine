@@ -7,6 +7,7 @@ import Actions from "../components/Actions/Actions";
 import { useLang } from "../utils/hooks";
 import Lang from "../components/Lang/Lang";
 import { reverseRotateFn, rotateFn } from "../utils/anims";
+import Loader from "../components/Loader/Loader";
 
 const Home: NextPage = () => {
   const [frQuote, setFrQuote] = useState<QuoteType>({
@@ -24,7 +25,7 @@ const Home: NextPage = () => {
   const { text, lang } = useLang();
   const requestRef = useRef<number>();
   const previousTimeRef = useRef<number>();
-
+  const [isRequesting, setIsRequesting] = useState(false);
   const animate = (time: number) => {
     if (previousTimeRef.current != undefined) {
       const deltaTime: number = time - previousTimeRef.current;
@@ -55,9 +56,15 @@ const Home: NextPage = () => {
 
     rotate.onfinish = () => {
       reverseRotate.play();
+      isRequesting && setIsLoading(true);
     };
+
     try {
+      setIsRequesting(true);
+      first && setIsLoading(true);
+
       const newQuote = await fetchData("https://api.quotable.io/random", "GET", setError);
+      setIsRequesting(false);
       setIsTranslated(false);
       if (lang === "fr") {
         const body = newQuote.content;
@@ -68,18 +75,14 @@ const Home: NextPage = () => {
           author: newQuote.author,
         });
       }
-      first
-        ? updateQuote(newQuote, setQuote)
-        : (rotate.onfinish = () => {
-            setIsLoading(true);
-            reverseRotate.play();
-            updateQuote(newQuote, setQuote);
-            setIsLoading(false);
-          });
+
+      updateQuote(newQuote, setQuote);
+      setIsLoading(false);
     } catch (err: any) {
       setError(error);
     } finally {
       setIsLoading(false);
+      setIsRequesting(false);
     }
   };
 
@@ -92,8 +95,9 @@ const Home: NextPage = () => {
           setError={setError}
           isTranslated={isTranslated}
           setIsTranslated={setIsTranslated}
+          setIsLoading={setIsLoading}
         />
-        {isLoading ? <p>{text.loading}</p> : <Quote error={error} quote={quoteFn()} />}
+        {isLoading ? <Loader /> : <Quote error={error} quote={quoteFn()} />}
         <Actions quote={quoteFn()} handleNewQuote={handleNewQuote} />
       </div>
       <p className="cr">{text.dev}</p>

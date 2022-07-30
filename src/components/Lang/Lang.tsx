@@ -11,9 +11,17 @@ type LangProps = {
   setError: React.Dispatch<React.SetStateAction<any>>;
   isTranslated: boolean;
   setIsTranslated: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function Lang({ quote, setFrQuote, setError, isTranslated, setIsTranslated }: LangProps) {
+function Lang({
+  quote,
+  setFrQuote,
+  setError,
+  isTranslated,
+  setIsTranslated,
+  setIsLoading,
+}: LangProps) {
   const { setLang, lang, text } = useLang();
   useEffect(() => {
     handleSlider(lang as LangType);
@@ -23,19 +31,22 @@ function Lang({ quote, setFrQuote, setError, isTranslated, setIsTranslated }: La
     try {
       const targetLang = e.currentTarget.dataset.lang;
       handleSlider(targetLang);
+      setLang(targetLang);
       if (targetLang === "fr") {
+        setIsLoading(true);
         if (!isTranslated) {
           const translation = await fetchData("/api/tl", "POST", setError, quote.text);
           setFrQuote({ text: translation.text, author: quote.author });
         }
         setLang(targetLang);
         setIsTranslated(true);
-      } else if (targetLang === "en") {
-        setLang(targetLang);
       }
     } catch (error) {
-      handleSlider(lang as LangType);
+      setLang("en");
+      handleSlider("en");
       alert(text.alert);
+    } finally {
+      setIsLoading(false);
     }
   };
 
