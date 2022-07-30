@@ -1,5 +1,6 @@
 .loader {
   margin: auto;
+  margin-bottom: 1rem;
   padding: 10px;
   border: 6px solid var(--bg-color);
   border-bottom-color: transparent !important;
